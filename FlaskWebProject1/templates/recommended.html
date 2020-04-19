@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <h1>Movie Recomendation System</h1>
+            <hr>
+
+            <form action="/movie" method="POST">
+
+                <div class="Movie_Input">
+                    <label>Please Input Your Movie</label>
+                    <input type="text" class="form-control" id="moviename" name="movie">
+                </div>               
+
+                <button type="submit" class="btn btn-primary">Give Suggestion</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% if movie_predicted %}
+    {% for n in movie_predicted %}
+        <H3>{{n}}</H3>
+	{% endfor %}
+{% endif %}
+
+{% endblock %}
+
