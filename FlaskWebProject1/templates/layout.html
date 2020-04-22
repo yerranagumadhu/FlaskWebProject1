@@ -7,6 +7,9 @@
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
     <script src="/static/scripts/modernizr-2.6.2.js"></script>
+
+
+
 </head>
 
 <body>
@@ -43,6 +46,27 @@
     <script src="/static/scripts/jquery-1.10.2.js"></script>
     <script src="/static/scripts/bootstrap.js"></script>
     <script src="/static/scripts/respond.js"></script>
+
+
+    <script src="/static/scripts/jquery-1.12.4.js"></script>
+    <script src="/static/scripts/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/content/jquery-ui.css" />
+
+  
+    <script type="text/javascript">
+        $(function () {
+            var mv_list = [];
+            var n = 0;
+            {% for n in movie_list %}
+            mv_list.push("{{ n }}")            
+            {% endfor %}
+            console.log(mv_list);
+            $("#moviename").autocomplete({
+                source: mv_list
+            });
+        });
+    </script>
+
     {% block scripts %}{% endblock %}
 
 </body>

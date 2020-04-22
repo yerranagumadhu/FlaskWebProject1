@@ -16,9 +16,14 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import json
+
+#for matching the nearest movie name to the  user input name
+from fuzzywuzzy  import process
 
 #credits = pd.read_csv(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\data\tmdb_5000_credits.csv")
 movies = pd.read_csv(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\data\new_data\movie_dataset.csv")
+movie_list = list(movies['original_title'].unique())
 features = ['keywords','cast','genres','director']
 
 # We are considering the 4 features i.e. keywords, cast, genres and director for the movie reocomedation 
@@ -46,7 +51,8 @@ def movie_predict(movie_user_like):
     cosine_sim = cosine_similarity(count_matrix)
 
     #Get the Movie name from the user and fetch the index from the movie
-    movie_index = get_index_from_title(movie_user_like)
+    movie_name = process.extractOne(movie_user_like, movies['title'])
+    movie_index = get_index_from_title(movie_name[0])
 
     ## Enumerate all the simillarty score for the movie to make a tuple of movie index and similarity scores 
     # Note : we will return a list of tuples in the form 
@@ -66,14 +72,59 @@ def movie_predict(movie_user_like):
 
 # End of the Movie recomendation system
 
+###################################################
+# Start of the of the Movie Recomendation system #
+###################################################
+import wikipedia
+
+def GetWikipediaData(title_name):
+    try:
+        description = wikipedia.page(title_name).content
+        description = description.split('\n\n')[0]
+        images = 'https://www.wikipedia.org/static/apple-touch/wikipedia.png'
+        images = wikipedia.page(title_name).images
+        for image in images:
+            if('poster' in image.lower()):
+                break;
+    except:
+        description = " No wikipedia Description avaialbe"
+        image = 'https://www.wikipedia.org/static/apple-touch/wikipedia.png'
+        pass
+    return(description, image)
+
+
+# End of the Recomendation system
+
 @app.route("/movie", methods=["GET", "POST"])
 def movie():
     feedback = 'outside of the Post method'
     if request.method == "POST":
 
-        req = request.form['movie']
+        req = request.form['movie']        
         movie_predicted =  movie_predict(req)    
-              
-        return render_template("recommended.html",  movie_predicted = movie_predicted)
 
-    return render_template("recommended.html")
+        # Added to fetch the Wiki data
+        wiki_movie = {}
+        for i,j in enumerate(movie_predicted):
+            wiki_movie_description, wiki_movie_poster  = GetWikipediaData(j +' film') 
+            wiki_movie[i] = [j, wiki_movie_description, wiki_movie_poster]
+              
+        return render_template("recommended.html",  movie_predicted = movie_predicted,movie_list = movie_list, req= req, wiki_movie = wiki_movie)
+
+    return render_template("recommended.html",movie_list = movie_list)
+
+
+
+@app.route("/test", methods=["GET", "POST"])
+def test():
+    # get recommendations for another movie after user clicks on new title
+	#movie_title = request.args.get('movie_title')
+    
+    movie_list = movie_predict('Avatar')
+    wiki_movie = {}
+    for i,j in enumerate(movie_list):
+        wiki_movie_description, wiki_movie_poster  = GetWikipediaData(j +' film') 
+        wiki_movie[i] = [j, wiki_movie_description, wiki_movie_poster]
+    return render_template("test.html", wiki_movie = wiki_movie)
+    #return jsonify({'wiki_movie_description':wiki_movie_description, 'wiki_movie_poster':  wiki_movie_poster})
+    

@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -13,9 +15,10 @@
                 <div class="Movie_Input">
                     <label>Please Input Your Movie</label>
                     <input type="text" class="form-control" id="moviename" name="movie">
-                </div>               
+                </div>
 
-                <button type="submit" class="btn btn-primary">Give Suggestion</button>
+                <button type="submit" class="btn btn-primary" onclick="myFunction()">Give Suggestion</button>
+
 
             </form>
 
@@ -23,11 +26,37 @@
     </div>
 </div>
 
-{% if movie_predicted %}
-    {% for n in movie_predicted %}
-        <H3>{{n}}</H3>
-	{% endfor %}
-{% endif %}
 
-{% endblock %}
+<!--<div class="jumbotron">
+    <h3>Movie <b> {{ req }} </b></h3>
+    <p class="lead">List of the Top 5 Movie's we would like to suggest</p>
+    <div class="btn-toolbar pull-left">
+        {% if movie_predicted %}
+        {% for n in movie_predicted %}
+        <a href="http://flask.pocoo.org/" class="btn btn-primary btn-large">  {{n}}</a>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+</div>-->
+
+
+
+<br>
+<br>
+<div id="myDIV">
+    <h3>Movie <b> {{ req }} </b></h3>
+    <p class="lead">List of the Top 5 Movie's we would like to suggest</p>
+    {% for n in wiki_movie %}
+    <div class="post-container">
+        <div class="post-thumb"><img src={{ wiki_movie[n][2] }} /></div>
+        <div class="post-content">
+            <h3 class="post-title">Movie Title: {{ wiki_movie[n][0] }}</h3>
+            <p> {{ wiki_movie[n][1] }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+    {% endblock %}
 

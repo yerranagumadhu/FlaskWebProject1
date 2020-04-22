@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+
+ {% for n in wiki_movie %}
+<div class="post-container">
+    <div class="post-thumb"><img src={{ wiki_movie[n][2] }} /></div>
+    <div class="post-content">
+        <h3 class="post-title">Movie Title: {{ wiki_movie[n][0] }}</h3>
+        <p> {{ wiki_movie[n][1] }}</p>
+    </div>
+</div>
+
+
+ {% endfor %}
+
+
+{% endblock %}
+
