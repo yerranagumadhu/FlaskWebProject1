@@ -22,7 +22,7 @@ import json
 from fuzzywuzzy  import process
 
 #credits = pd.read_csv(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\data\tmdb_5000_credits.csv")
-movies = pd.read_csv(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\data\new_data\movie_dataset.csv")
+movies = pd.read_csv(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\web_app\FlaskWebProject1\data\movie_dataset.csv")
 movie_list = list(movies['original_title'].unique())
 features = ['keywords','cast','genres','director']
 
