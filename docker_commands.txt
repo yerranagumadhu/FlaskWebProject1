@@ -1,0 +1,26 @@
+docker images
+docker rmi -f IMAGE <image name>
+docker stop container <container name> 
+docker run -it -d  -p 3978:3978  <image name>  /bin/sh 
+docker build -t <image name>:latest . 
+
+
+docker inspect <image name>
+
+print(os.path.join(os.path.abspath(r"."), "movie_dataset.csv"))
+
+
+m = pd.read_csv(os.path.join(os.path.abspath(r"."),"data", "movie_dataset.csv"))
+
+pip3 install --upgrade pip
+
+pip install sklearn
+pip install fuzzywuzzy
+pip install wikipedia
+pip install flask
+pip install pandas
+
+
+docker run -it -d  -p 5000:5000 flaskapp
+
+docker-machine ip

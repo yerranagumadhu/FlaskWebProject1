@@ -17,12 +17,14 @@ import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
+import os 
 
 #for matching the nearest movie name to the  user input name
 from fuzzywuzzy  import process
 
 #credits = pd.read_csv(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\data\tmdb_5000_credits.csv")
-movies = pd.read_csv(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\web_app\FlaskWebProject1\data\movie_dataset.csv")
+#movies = pd.read_csv(r".\data\movie_dataset.csv")
+movies = pd.read_csv(os.path.join(os.path.abspath(r"."),"data", "movie_dataset.csv"))
 movie_list = list(movies['original_title'].unique())
 features = ['keywords','cast','genres','director']
 
