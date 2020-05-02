@@ -24,3 +24,88 @@ pip install pandas
 docker run -it -d  -p 5000:5000 flaskapp
 
 docker-machine ip
+
+# How to push the docker image to docker hub and how to deploy in aws 
+
+Video : https://www.youtube.com/watch?v=1fnPCWBikYQ
+
+
+# To push the docker image to docker HUB
+
+First need to login into docker account through console
+
+docker tag <repository name>:<TAG> <username>/<unique name for your docker image>
+
+docker push <your repository name which you have created>
+
+sudo yum install docker -y
+
+sudo service docker start
+
+sudo docker run -it -d -p 80:5000 yerranagumadhu/movie_recomedation
+
+
+# Linking the EC2 IP address to domain name
+
+Video : https://www.youtube.com/watch?v=tZh7sqs1YFo
+
+# AWS Commands
+
+
+Public DNS(IPv4)	:	ec2-18-216-69-53.us-east-2.compute.amazonaws.com
+IPv4 Public IP 		:	18.216.69.53
+
+
+http://www.happi2learn.com/
+
+
+
+paste this in the Namecheap 
+
+
+ns-831.awsdns-39.net
+ns-1914.awsdns-47.co.uk
+ns-1290.awsdns-33.org
+ns-346.awsdns-43.com
+
+
+see this Article :https://dev.to/aws/amazon-route-53-how-to-automatically-update-ip-addresses-without-using-elastic-ips-h7o
+
+EC2 instance File Location : /var/lib/cloud/scripts/per-boot/
+
+DNS Name : happi2learn.com
+Hosted Zone ID:Z01632481F8QT148V88C4
+
+AUTO_DNS_NAME :  happi2learn.com
+AUTO_DNS_ZONE :  Z01632481F8QT148V88C4
+
+REad this artice how to run the shell scripts when we start the Ec2 instance
+
+link : https://aws.amazon.com/premiumsupport/knowledge-center/execute-user-data-ec2/
+
+source /home/ec2-user/route_53.sh
+
+
+
+
+# #
+
+if __name__ == '__main__':
+    HOST = environ.get('SERVER_HOST', 'localhost')
+    try:
+        PORT = int(environ.get('SERVER_PORT', '5555'))
+    except ValueError:
+        PORT = 5555
+    app.run(HOST, PORT)
+	
+##	
+
+
+
+#Wines ML Model# 
+
+columns = ['type', 'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 'chlorides', 'free_sulfur_dioxide', 'total_sulfur_dioxide', 'density', 'pH', 'sulphates', 'alcohol']
+
+
+
+

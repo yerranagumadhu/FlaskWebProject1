@@ -17,6 +17,7 @@ import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import json
+from flask import jsonify
 import os 
 
 #for matching the nearest movie name to the  user input name
@@ -119,14 +120,13 @@ def movie():
 
 @app.route("/test", methods=["GET", "POST"])
 def test():
-    # get recommendations for another movie after user clicks on new title
-	#movie_title = request.args.get('movie_title')
+    # Load the Default Wines paramaters values  from the Json file min, max, mean        
+    return render_template("test.html")
     
-    movie_list = movie_predict('Avatar')
-    wiki_movie = {}
-    for i,j in enumerate(movie_list):
-        wiki_movie_description, wiki_movie_poster  = GetWikipediaData(j +' film') 
-        wiki_movie[i] = [j, wiki_movie_description, wiki_movie_poster]
-    return render_template("test.html", wiki_movie = wiki_movie)
-    #return jsonify({'wiki_movie_description':wiki_movie_description, 'wiki_movie_poster':  wiki_movie_poster})
+
     
+@app.route("/backgroud_process", methods = ["GET","POST"])
+def backgroud_process():
+    defalut_wines_values =  json.load(open(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\web_app\FlaskWebProject1\models\default_val.json")) 
+    #defalut_wines_values = {'a':1,'b' :2,'c':3}
+    return jsonify(defalut_wines_values)

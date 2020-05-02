@@ -68,3 +68,9 @@ input[type="checkbox"].input-validation-error {
     font-weight: bold;
     font-size: 200%
 }
+
+
+/* Wine quality Siding window */
+.slidecontainer {
+    width: 90%;
+}
