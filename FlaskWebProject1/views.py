@@ -9,7 +9,6 @@ from FlaskWebProject1 import app
 
 
 @app.route('/')
-@app.route('/home')
 def home():
     """Renders the home page."""
 
@@ -26,7 +25,7 @@ def contact():
         'contact.html',
         title='Contact',
         year=datetime.now().year,
-        message='Your contact page.'
+        
     )
 
 @app.route('/about')
@@ -35,8 +34,8 @@ def about():
     return render_template(
         'about.html',
         title='About',
-        year=datetime.now().year,
-        message='Your application description page.'
+        year=datetime.now().year
+        
     )
 
 

@@ -19,6 +19,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import json
 from flask import jsonify
 import os 
+import pickle 
 
 #for matching the nearest movie name to the  user input name
 from fuzzywuzzy  import process
@@ -84,11 +85,11 @@ def GetWikipediaData(title_name):
     try:
         description = wikipedia.page(title_name).content
         description = description.split('\n\n')[0]
-        images = 'https://www.wikipedia.org/static/apple-touch/wikipedia.png'
+        image = 'https://www.wikipedia.org/static/apple-touch/wikipedia.png'
         images = wikipedia.page(title_name).images
         for image in images:
             if('poster' in image.lower()):
-                break;
+                break;            
     except:
         description = " No wikipedia Description avaialbe"
         image = 'https://www.wikipedia.org/static/apple-touch/wikipedia.png'
@@ -112,21 +113,59 @@ def movie():
             wiki_movie_description, wiki_movie_poster  = GetWikipediaData(j +' film') 
             wiki_movie[i] = [j, wiki_movie_description, wiki_movie_poster]
               
-        return render_template("recommended.html",  movie_predicted = movie_predicted,movie_list = movie_list, req= req, wiki_movie = wiki_movie)
+        return render_template("recommended.html",  movie_predicted = movie_predicted,movie_list = movie_list, req= req, wiki_movie = wiki_movie, title='Movie Recommendation')
 
-    return render_template("recommended.html",movie_list = movie_list)
+    return render_template("recommended.html",movie_list = movie_list, title='Movie Recommendation')
 
 
 
 @app.route("/test", methods=["GET", "POST"])
 def test():
     # Load the Default Wines paramaters values  from the Json file min, max, mean        
-    return render_template("test.html")
+    return render_template("test.html", title='Wine Quality Predictor')
     
 
     
 @app.route("/backgroud_process", methods = ["GET","POST"])
 def backgroud_process():
-    defalut_wines_values =  json.load(open(r"C:\Users\Yerra\Desktop\spark\movie_recommendation_system\web_app\FlaskWebProject1\models\default_val.json")) 
-    #defalut_wines_values = {'a':1,'b' :2,'c':3}
-    return jsonify(defalut_wines_values)
+    defalut_wines_values =  json.load(open(os.path.join(os.path.abspath(r"."),"FlaskWebProject1","static","data","default_val_fixed.json"))) 
+
+    #Load the Saved model  Gradient Boosting model for wine Recomendation system
+    gb_model = pickle.load(open(os.path.join(os.path.abspath(r"."),"FlaskWebProject1","static","data","gb_model_dump_fixed.p"), "rb"))
+
+    if request.method == "POST":
+
+        type                =  float(request.form['type'])
+        fixed_acidity       =  float(request.form['fixed_acidity'])
+        volatile_acidity    =  float(request.form['volatile_acidity'])
+        citric_acid         =  float(request.form['citric_acid'])
+        residual_sugar      =  float(request.form['residual_sugar'])
+        chlorides           =  float(request.form['chlorides'])
+        free_sulfur_dioxide =  float(request.form['free_sulfur_dioxide'])
+        total_sulfur_dioxide=  float(request.form['total_sulfur_dioxide'])
+        density             =  float(request.form['density'])
+        pH                  =  float(request.form['pH'])
+        sulphates           =  float(request.form['sulphates'])
+        alcohol             =  float(request.form['alcohol'])
+
+            
+        features = ['type', 'fixed acidity', 'volatile acidity', 'citric acid','residual sugar', 'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol']
+        x_test = pd.DataFrame([[type,fixed_acidity, volatile_acidity, citric_acid,  residual_sugar,  chlorides, free_sulfur_dioxide,  total_sulfur_dioxide,  density,  pH,  sulphates, alcohol]], columns = features)
+
+
+        predicted_val       = gb_model.predict_proba(x_test[features])
+        predicted_quality   = ['Bad Quality','Good Quality','Best Quality'][np.argmax(predicted_val)]
+        image               = ['Bad_quality_wine.jpg','Good_quality_wine.jpg','Best_quality_wine.jpg'][np.argmax(predicted_val)]
+        k = {'quality_prediction':0}
+        return jsonify({                           
+                           'predicted_quality'      :   predicted_quality,
+                           'image'                  :   image
+            })
+    else:
+        return jsonify(defalut_wines_values)
+
+
+
+
+
+
