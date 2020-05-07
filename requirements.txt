@@ -3,4 +3,4 @@ fuzzywuzzy
 wikipedia
 flask
 pandas
-pickle
+pickle-mixin

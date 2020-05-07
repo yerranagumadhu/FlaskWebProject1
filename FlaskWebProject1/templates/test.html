@@ -233,41 +233,50 @@
 
             </div>
             <div class="wine_column right_wine" style="background-color:#bbb;">
-                <div class="post-container">
-                    <div class="post-thumb"><img src="/static/images/wine_logo.jpg" /></div>
-                    <div class="post-content">
-                        <h3 class="post-title">For the Input</h3>
-                        <ol>
-                            <li>type: <span id="type_i"></span> </li>
-                            <li>fixed_acidity: <span id="fixed_acidity_i"></span> </li>
-                            <li>volatile_acidity: <span id="volatile_acidity_i"></span> </li>
-                            <li>citric_acid: <span id="citric_acid_i"></span> </li>
-                            <li>residual_sugar: <span id="residual_sugar_i"></span> </li>
-                            <li>chlorides: <span id="chlorides_i"></span> </li>
-                            <li>free_sulfur_dioxide: <span id="free_sulfur_dioxide_i"></span> </li>
-                            <li>total_sulfur_dioxide: <span id="total_sulfur_dioxide_i"></span> </li>
-                            <li>density <span id="density_i"></span> </li>
-                            <li>pH: <span id="pH_i"></span> </li>
-                            <li>sulphates: <span id="sulphates_i"></span> </li>
-                            <li>alcohol: <span id="alcohol_i"></span> </li>
-
-                        </ol>
-                        <button type="submit" class="btn btn-default" > Get the Wine Quality </button>
-                    </div>
-                </div>
-
-                <!-- Out Result from the Flask app we go here-->
-                <div class="post-container">
-                    <div class="post-thumb", id="img"></div>
-                    <div class="post-content">                        
-                        <div id="output">
-                            <!-- Append the Output here -->
-                            <h3 class="post-title", id="quality_cat "></h3>
+                <div class="container-fluid post-container">
+                    <div class='row'>
+                        <div class="col-lg-6 col-md-6">
+                            <img src="/static/images/wine_logo.jpg" />
                         </div>
+                        <div class="col-lg-6 col-md-6 px-3">
+                            <h3 class="post-title">For the Input</h3>
+                            <ol>
+                                <li>type: <span id="type_i"></span> </li>
+                                <li>fixed_acidity: <span id="fixed_acidity_i"></span> </li>
+                                <li>volatile_acidity: <span id="volatile_acidity_i"></span> </li>
+                                <li>citric_acid: <span id="citric_acid_i"></span> </li>
+                                <li>residual_sugar: <span id="residual_sugar_i"></span> </li>
+                                <li>chlorides: <span id="chlorides_i"></span> </li>
+                                <li>free_sulfur_dioxide: <span id="free_sulfur_dioxide_i"></span> </li>
+                                <li>total_sulfur_dioxide: <span id="total_sulfur_dioxide_i"></span> </li>
+                                <li>density <span id="density_i"></span> </li>
+                                <li>pH: <span id="pH_i"></span> </li>
+                                <li>sulphates: <span id="sulphates_i"></span> </li>
+                                <li>alcohol: <span id="alcohol_i"></span> </li>
 
+                            </ol>
+                            <button type="submit" class="btn btn-default"> Get the Wine Quality </button>
+                        </div>
                     </div>
                 </div>
 
+                        <!-- Out Result from the Flask app we go here-->
+                <div class="container-fluid post-container">
+                    <div class='row'>
+                        <div class="col-lg-6 col-md-6" id="img">
+
+
+                        </div>
+                        <div class="col-lg-6 col-md-6 px-3">                            
+                                <div id="output">
+                                    <!-- Append the Output here -->
+                                    <h3 class="post-title" , id="quality_cat "></h3>
+                                </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

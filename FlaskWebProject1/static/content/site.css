@@ -45,18 +45,31 @@ input[type="checkbox"].input-validation-error {
 .post-container {
     margin: 20px 20px 0 0;
     border: 5px solid #333;
-    overflow: auto
+    overflow: auto;
+
+}
+
+img {
+    width: 100%;
+    max-width: 500px;
+    
 }
 
 .post-thumb {
-    float: left
+    float: left;
+    max-width: 100%;
+    overflow: auto;
 }
 
     .post-thumb img {
         display: block;
         margin: 20px 20px 20px 20px;
+        max-width: 100%;
+        height: auto;
         width: 250px;
         height: 250px;
+        object-fit: cover;
+        
     }
 
 .post-content {

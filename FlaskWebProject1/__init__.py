@@ -131,7 +131,7 @@ def backgroud_process():
     defalut_wines_values =  json.load(open(os.path.join(os.path.abspath(r"."),"FlaskWebProject1","static","data","default_val_fixed.json"))) 
 
     #Load the Saved model  Gradient Boosting model for wine Recomendation system
-    gb_model = pickle.load(open(os.path.join(os.path.abspath(r"."),"FlaskWebProject1","static","data","gb_model_dump_fixed.p"), "rb"))
+    gb_model = pickle.load(open(os.path.join(os.path.abspath(r"."),"models","gb_model_dump.p"), "rb"))
 
     if request.method == "POST":
 

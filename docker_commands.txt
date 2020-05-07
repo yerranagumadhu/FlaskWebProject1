@@ -1,8 +1,9 @@
 docker images
 docker rmi -f IMAGE <image name>
 docker stop container <container name> 
-docker run -it -d  -p 3978:3978  <image name>  /bin/sh 
+docker run -it -d  -p 5000:5000  <image name>  /bin/sh 
 docker build -t <image name>:latest . 
+docker exec -it <container name> /bin/bash 
 
 
 docker inspect <image name>
@@ -43,6 +44,10 @@ sudo yum install docker -y
 sudo service docker start
 
 sudo docker run -it -d -p 80:5000 yerranagumadhu/movie_recomedation
+
+#NEW Application 
+
+sudo docker run -it -d -p 80:5000 yerranagumadhu/flaskapp_ml_model_movie_and_wine
 
 
 # Linking the EC2 IP address to domain name
